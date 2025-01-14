@@ -35,6 +35,15 @@ app.get('/users/:id', async (req, res) => {
   res.json(users)
 })
 
+app.get('/users/ByUsername/:username', async (req, res) => {
+  const users = await prisma.user.findUnique({
+    where: {
+      username: req.params.username
+    }
+  })
+  res.json(users)
+})
+
 app.put('/users/:id', async (req, res) => {
   const { id, username, telefone } = req.body
   const updateUser = await prisma.user.update({
