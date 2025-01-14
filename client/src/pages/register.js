@@ -7,7 +7,6 @@ import {
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Axios from 'axios'
-import Login from './login'
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
 const phone_REGEX = /^[0-9]{9,12}$/

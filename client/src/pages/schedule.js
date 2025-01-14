@@ -1,7 +1,11 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from 'react-router-dom';
 
 const HorariosDisponiveis = () => {
+
+  const navigate = useNavigate();
+  
   const horariosManha = [
     '8H', '9H', '10H', '11H', '12H',
   ];
@@ -10,11 +14,15 @@ const HorariosDisponiveis = () => {
     '13H', '14H', '15H', '16H', '17H',
   ];
 
+  const handleBack = () => {
+    navigate('/home'); // Altere para a rota da página de login
+  };
+
   return (
     <div className="container-fluid bg-dark text-light vh-100 d-flex flex-column justify-content-center align-items-center">
       {/* Botão de Voltar */}
       <div className="position-absolute top-0 start-0 p-3">
-        <button className="btn btn-outline-light" onClick={() => window.history.back()}>
+        <button className="btn btn-outline-light" onClick={handleBack}>
           <i className="bi bi-arrow-left"></i>
         </button>
       </div>
