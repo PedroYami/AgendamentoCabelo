@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
 // import './App.css'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Register from './register'
-import Login from './login'
+import Register from './pages/register'
+import Login from './pages/login'
+import Home from './pages/home'
+import Schedule from './pages/schedule';
 
 function App() {
 
@@ -12,6 +14,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Register />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/schedule" element={<Schedule />} />
         </Routes>
       </Router>
     </div>

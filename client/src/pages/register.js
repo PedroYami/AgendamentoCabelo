@@ -4,19 +4,26 @@ import {
   faTimes,
   faInfoCircle
 } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Axios from 'axios'
+import Login from './login'
 
 const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
+const phone_REGEX = /^[0-9]{9,12}$/
 const password_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
-const Login = () => {
+const Register = () => {
   const userRef = useRef()
   const errRef = useRef()
 
   const [username, setUsername] = useState('')
   const [validName, setValidName] = useState(false)
   const [userFocus, setUserFocus] = useState(false)
+
+  const [phone, setPhone] = useState('')
+  const [validPhone, setValidPhone] = useState(false)
+  const [PhoneFocus, setPhoneFocus] = useState(false)
 
   const [password, setPassword] = useState('')
   const [validpassword, setValidPassword] = useState(false)
@@ -34,42 +41,56 @@ const Login = () => {
   }, [username])
 
   useEffect(() => {
+    setValidPhone(phone_REGEX.test(phone))
+  }, [phone])
+
+  useEffect(() => {
     setValidPassword(password_REGEX.test(password))
   }, [password])
 
   useEffect(() => {
     setErrMsg('')
-  }, [username, password])
+  }, [username, phone, password])
 
   const handleSubmit = async e => {
     e.preventDefault()
     // if button enabled with JS hack
     const v1 = USER_REGEX.test(username)
-    const v2 = password_REGEX.test(password)
-    if (!v1 || !v2) {
+    const v2 = phone_REGEX.test(phone)
+    const v3 = password_REGEX.test(password)
+    if (!v1 || !v2 || !v3) {
       setErrMsg('Invalid Entry')
       return
     }
     try {
-      const response = await Axios.get(`http://localhost:3001/users/ByUsername/${username}`)
-
-      if (!response.data) {
-        setErrMsg('Invalid user')
-        return
-      } else if (response.data.password !== password) {
-        setErrMsg('Invalid password')
-        return
-      }
+      // const response = () => {
+      //   Axios.post('http://localhost:3001/users/', {
+      //     username: username,
+      //     telefone: phone,
+      //     password: password
+      //   }).then(response => {
+      //     console.log(response)
+      //   })
+      // }
+      const response = await Axios.post('http://localhost:3001/users/',
+        JSON.stringify({ username: username, telefone: phone, password: password }),
+        {
+            headers: { 'Content-Type': 'application/json' },
+        }
+    );
       setSuccess(true)
       //clear state and controlled inputs
       //need value attrib on inputs for this
       setUsername('')
       setPassword('')
+      setPhone('')
     } catch (err) {
       if (!err?.response) {
         setErrMsg('No Server Response')
+      } else if (err.response?.status === 409) {
+        setErrMsg('Username Taken')
       } else {
-        setErrMsg('Login Failed')
+        setErrMsg('Registration Failed')
       }
       errRef.current.focus()
     }
@@ -79,11 +100,11 @@ const Login = () => {
     <>
       {success ? (
         <section>
-          <h1>Login Sucess!</h1>
-          <p>
-            <a href="#">Home</a>
-          </p>
-        </section>
+        <h1>Success!</h1>
+        <p>
+          <Link to="/login">Sign In</Link>
+        </p>
+    </section>
       ) : (
         <section>
           <p
@@ -93,7 +114,7 @@ const Login = () => {
           >
             {errMsg}
           </p>
-          <h1>Login</h1>
+          <h1>Register</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
               Username:
@@ -133,6 +154,38 @@ const Login = () => {
               Must begin with a letter.
               <br />
               Letters, numbers, underscores, hyphens allowed.
+            </p>
+
+            <label htmlFor="phone">
+              Phone:
+              <FontAwesomeIcon
+                icon={faCheck}
+                className={validPhone ? 'valid' : 'hide'}
+              />
+              <FontAwesomeIcon
+                icon={faTimes}
+                className={validPhone || !phone ? 'hide' : 'invalid'}
+              />
+            </label>
+            <input
+              type="phone"
+              id="phone"
+              onChange={e => setPhone(e.target.value)}
+              value={phone}
+              required
+              aria-invalid={validPhone ? 'false' : 'true'}
+              aria-describedby="confirmnote"
+              onFocus={() => setPhoneFocus(true)}
+              onBlur={() => setPhoneFocus(false)}
+            />
+            <p
+              id="confirmnote"
+              className={
+                PhoneFocus && !validPhone ? 'instructions' : 'offscreen'
+              }
+            >
+              <FontAwesomeIcon icon={faInfoCircle} />
+              Complete the phone number.
             </p>
 
             <label htmlFor="password">
@@ -178,15 +231,14 @@ const Login = () => {
             </p>
 
             <button disabled={!validName || !validpassword ? true : false}>
-              Login
+              Sign Up
             </button>
           </form>
           <p>
-            Don't have an account?
+            Already registered?
             <br />
             <span className="line">
-              {/*put router link here*/}
-              <a href="/">Sign Up</a>
+              <Link to="/login">Sign In</Link>
             </span>
           </p>
         </section>
@@ -195,4 +247,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Register
