@@ -10,7 +10,7 @@ import Axios from 'axios'
 import { Link } from 'react-router-dom'
 import Home from '../pages/home'
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
+const USER_REGEX = /^[A-z ][ A-z ]{3,23}$/
 const password_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
 const Login = () => {
@@ -85,7 +85,7 @@ const Login = () => {
   return (
     <>
       {success ? (
-        <Home userId={userId} />
+        <Home userId={userId}/>
       ) : (
         <section>
           <p
@@ -121,21 +121,6 @@ const Login = () => {
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
             />
-            <p
-              id="uidnote"
-              className={
-                userFocus && username && !validName
-                  ? 'instructions'
-                  : 'offscreen'
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
 
             <label htmlFor="password">
               Password:
@@ -166,12 +151,12 @@ const Login = () => {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
+              8 a 24 caracteres.
               <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
+              Precisa incluir ao menos uma letra maiúscula, uma letra minúscula, 
+              um número e um caractere especial.
               <br />
-              Allowed special characters:{' '}
+              Caracteres Especiais Perimitidos:{' '}
               <span aria-label="exclamation mark">!</span>{' '}
               <span aria-label="at symbol">@</span>{' '}
               <span aria-label="hashtag">#</span>{' '}
@@ -184,7 +169,7 @@ const Login = () => {
             </button>
           </form>
           <p>
-            Don't have an account?
+            Ainda não tem cadastro?
             <br />
             <span className="line">
               {/*put router link here*/}

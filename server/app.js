@@ -79,6 +79,16 @@ app.get('/schedules', async (req, res) => {
   }
 });
 
+app.delete('/schedules/:id', async (req, res) => {
+  const { id } = req.params
+  const schedule = await prisma.schedule.delete({
+    where: {
+      id: parseInt(id)
+    }
+  })
+  res.json(schedule)
+})
+
 app.post('/schedules/book', async (req, res) => {
   const { userId, time } = req.body;
 

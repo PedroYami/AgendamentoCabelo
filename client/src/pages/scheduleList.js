@@ -5,8 +5,17 @@ import { useNavigate, useParams } from 'react-router-dom';
 const ScheduleList = () => {
   const [schedules, setSchedules] = useState([]);
   const navigate = useNavigate();
+
+  const [username, setUsername] = useState('')
   
   const { userId } = useParams();
+
+  useEffect(() => {
+    Axios
+      .get(`http://localhost:3001/users/${userId}`)
+      .then((response) => setUsername(response.data.username))
+      .catch((error) => console.error(error));
+  }, []);
 
   useEffect(() => {
     Axios
@@ -17,6 +26,23 @@ const ScheduleList = () => {
 
   const handleLogout = () => {
     navigate('/login'); // Redireciona para a página de login
+  };
+
+  const handleDelete = (scheduleId) => {
+    // Confirmação antes da exclusão
+    if (window.confirm('Você tem certeza que deseja excluir este horário?')) {
+      Axios
+        .delete(`http://localhost:3001/schedules/${scheduleId}`)
+        .then(() => {
+          // Atualiza a lista de horários após a exclusão
+          setSchedules((prev) => prev.filter((schedule) => schedule.id !== scheduleId));
+          alert('Horário excluído com sucesso.');
+        })
+        .catch((error) => {
+          console.error(error);
+          alert('Erro ao excluir o horário.');
+        });
+    }
   };
 
   return (
@@ -51,6 +77,14 @@ const ScheduleList = () => {
                     ? `Reservado por ${schedule.user.username}`
                     : 'Disponível'}
                 </p>
+                {username === 'admin' && schedule.user && (
+                  <button 
+                    onClick={() => handleDelete(schedule.id)} 
+                    className="btn btn-danger btn-sm mt-2"
+                  >
+                    Excluir
+                  </button>
+                )}
               </div>
             </div>
           </div>
