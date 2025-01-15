@@ -62,7 +62,7 @@ app.delete('/users/:id', async (req, res) => {
   const { id } = req.params
   const user = await prisma.user.delete({
     where: {
-      id: id
+      id: parseInt(id)
     }
   })
   res.json(user)

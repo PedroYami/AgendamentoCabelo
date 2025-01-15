@@ -15,9 +15,23 @@ const ScheduleList = () => {
       .catch((error) => console.error(error));
   }, []);
 
+  const handleLogout = () => {
+    navigate('/login'); // Redireciona para a página de login
+  };
+
   return (
     <div>
-      <h2>Horários Disponíveis</h2>
+      <div style={{ display: 'flex', justifyContent: 'flex-end', padding: '10px' }}>
+        <button 
+          onClick={handleLogout} 
+          className="btn btn-danger"
+          style={{ fontSize: '14px', fontWeight: 'bold' }}
+        >
+          Logout
+        </button>
+      </div>
+
+      <h2 style={{display: "flex", justifyContent: "center"}}>Horários Disponíveis</h2>
       <div className="row">
         {schedules.map((schedule) => (
           <div className="col-md-3 mb-3" key={schedule.id}>
