@@ -15,7 +15,7 @@ const HorariosDisponiveis = () => {
   ];
 
   const handleBack = () => {
-    navigate('/home'); // Altere para a rota da página de login
+    navigate('/home'); 
   };
 
   return (
@@ -27,11 +27,9 @@ const HorariosDisponiveis = () => {
         </button>
       </div>
 
-      {/* Título */}
       <h1 className="mb-4 text-center">HORÁRIOS DISPONÍVEIS</h1>
 
       <div className="d-flex justify-content-center align-items-start gap-4">
-        {/* Coluna da Manhã */}
         <div className="d-flex flex-column gap-2">
           {horariosManha.map((horario, index) => (
             <button
@@ -47,7 +45,6 @@ const HorariosDisponiveis = () => {
           ))}
         </div>
 
-        {/* Coluna da Tarde */}
         <div className="d-flex flex-column gap-2">
           {horariosTarde.map((horario, index) => (
             <button
@@ -63,7 +60,6 @@ const HorariosDisponiveis = () => {
           ))}
         </div>
 
-        {/* Coluna de Ações */}
         <div className="d-flex flex-column gap-3">
           <button
             className="btn btn-dark text-white border-light"

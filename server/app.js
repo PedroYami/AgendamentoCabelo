@@ -93,7 +93,6 @@ app.post('/schedules/book', async (req, res) => {
   const { userId, time } = req.body;
 
   try {
-    // Verificar se o horário já está ocupado
     const existingSchedule = await prisma.schedule.findFirst({
       where: { time },
     });
@@ -110,8 +109,6 @@ app.post('/schedules/book', async (req, res) => {
         userID: parseInt(userId),
       },
     });
-
-    console.log(schedule);
 
     res.json(schedule);
   } catch (error) {

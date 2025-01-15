@@ -1,17 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate, useParams } from 'react-router-dom';
-import ScheduleList from './scheduleList';
 
 const Home = ( {userId }) => {
   const navigate = useNavigate();
 
   const handleRedirection = () => {
-    navigate(`/scheduleList/${userId}`); // Altere para a rota desejada
+    navigate(`/scheduleList/${userId}`); 
   };
 
   const handleLogout = () => {
-    navigate('/login'); // Altere para a rota da página de login
+    navigate('/login');
   };
 
   return (
@@ -36,7 +35,6 @@ const Home = ( {userId }) => {
 
       <h1 className="mb-4">NOSSOS SERVIÇOS</h1>
       <div className="row justify-content-center gap-3">
-        {/* Serviço 1 */}
         <div
           className="col-md-4 mb-3"
           style={{
@@ -47,7 +45,7 @@ const Home = ( {userId }) => {
         >
           <div className="card mb-4">
             <img
-              src="https://img.freepik.com/fotos-gratis/cliente-fazendo-o-corte-de-cabelo-em-um-salao-de-barbearia_1303-20861.jpg" // Substitua pela imagem correta
+              src="https://img.freepik.com/fotos-gratis/cliente-fazendo-o-corte-de-cabelo-em-um-salao-de-barbearia_1303-20861.jpg" 
               className="card-img-top"
               alt="Corte Cabelo"
             />
@@ -58,7 +56,6 @@ const Home = ( {userId }) => {
           </div>
         </div>
 
-        {/* Serviço 2 */}
         <div
           className="col-md-4 mb-3"
           style={{
@@ -69,7 +66,7 @@ const Home = ( {userId }) => {
         >
           <div className="card mb-4">
             <img
-              src="https://img.freepik.com/fotos-gratis/homem-em-um-salao-de-barbearia-fazendo-o-corte-de-cabelo-e-barba_1303-20962.jpg" // Substitua pela imagem correta
+              src="https://img.freepik.com/fotos-gratis/homem-em-um-salao-de-barbearia-fazendo-o-corte-de-cabelo-e-barba_1303-20962.jpg" 
               className="card-img-top"
               alt="Barba"
             />
@@ -80,7 +77,6 @@ const Home = ( {userId }) => {
           </div>
         </div>
 
-        {/* Redirecionamento */}
         <div
           className="col-md-4 mb-3"
           style={{

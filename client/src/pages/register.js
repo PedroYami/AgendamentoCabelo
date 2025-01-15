@@ -62,15 +62,6 @@ const Register = () => {
       return
     }
     try {
-      // const response = () => {
-      //   Axios.post('http://localhost:3001/users/', {
-      //     username: username,
-      //     telefone: phone,
-      //     password: password
-      //   }).then(response => {
-      //     console.log(response)
-      //   })
-      // }
       const response = await Axios.post('http://localhost:3001/users/',
         JSON.stringify({ username: username, telefone: phone, password: password }),
         {
@@ -78,8 +69,7 @@ const Register = () => {
         }
     );
       setSuccess(true)
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
+      
       setUsername('')
       setPassword('')
       setPhone('')

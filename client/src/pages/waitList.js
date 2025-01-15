@@ -10,7 +10,7 @@ const Waitlist = () => {
     try {
       const schedule = location.state.schedule;
       await Axios.post('http://localhost:3001/waitlist', {
-        userId: userId, // Substitua pelo ID do cliente salvo
+        userId: userId,
         time: schedule.time,
       });
 

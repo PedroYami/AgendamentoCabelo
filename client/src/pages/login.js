@@ -48,7 +48,6 @@ const Login = () => {
 
   const handleSubmit = async e => {
     e.preventDefault()
-    // if button enabled with JS hack
     const v1 = USER_REGEX.test(username)
     const v2 = password_REGEX.test(password)
     if (!v1 || !v2) {
@@ -68,8 +67,7 @@ const Login = () => {
         return
       }
       setSuccess(true)
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
+      
       setUsername('')
       setPassword('')
     } catch (err) {
@@ -98,7 +96,7 @@ const Login = () => {
           <h1>Login</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
-              Username:
+              Nome:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validName ? 'valid' : 'hide'}
@@ -123,7 +121,7 @@ const Login = () => {
             />
 
             <label htmlFor="password">
-              Password:
+              Senha:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validpassword ? 'valid' : 'hide'}
@@ -172,7 +170,6 @@ const Login = () => {
             Ainda não tem cadastro?
             <br />
             <span className="line">
-              {/*put router link here*/}
               <Link to="/">Sign Up</Link>
             </span>
           </p>
