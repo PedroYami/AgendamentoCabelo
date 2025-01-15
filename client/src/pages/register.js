@@ -4,12 +4,11 @@ import {
   faTimes,
   faInfoCircle
 } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import Axios from 'axios'
-import Login from './login'
 
-const USER_REGEX = /^[A-z][A-z0-9-_]{3,23}$/
+const USER_REGEX = /^[A-z ][ A-z ]{3,23}$/
 const phone_REGEX = /^[0-9]{9,12}$/
 const password_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/
 
@@ -63,15 +62,6 @@ const Register = () => {
       return
     }
     try {
-      // const response = () => {
-      //   Axios.post('http://localhost:3001/users/', {
-      //     username: username,
-      //     telefone: phone,
-      //     password: password
-      //   }).then(response => {
-      //     console.log(response)
-      //   })
-      // }
       const response = await Axios.post('http://localhost:3001/users/',
         JSON.stringify({ username: username, telefone: phone, password: password }),
         {
@@ -79,8 +69,7 @@ const Register = () => {
         }
     );
       setSuccess(true)
-      //clear state and controlled inputs
-      //need value attrib on inputs for this
+      
       setUsername('')
       setPassword('')
       setPhone('')
@@ -100,9 +89,9 @@ const Register = () => {
     <>
       {success ? (
         <section>
-        <h1>Success!</h1>
-        <p>
-          <Link to="/login">Sign In</Link>
+        <h1>Usuário Cadastrado com Sucesso!</h1>
+        <p style={{display: "flex", justifyContent: "center"}}>
+          <Link to="/login">LogIn</Link>
         </p>
     </section>
       ) : (
@@ -114,10 +103,10 @@ const Register = () => {
           >
             {errMsg}
           </p>
-          <h1>Register</h1>
+          <h1 style={{display: "flex", justifyContent: "center"}}>Cadastro</h1>
           <form onSubmit={handleSubmit}>
             <label htmlFor="username">
-              Username:
+              Nome:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validName ? 'valid' : 'hide'}
@@ -140,24 +129,9 @@ const Register = () => {
               onFocus={() => setUserFocus(true)}
               onBlur={() => setUserFocus(false)}
             />
-            <p
-              id="uidnote"
-              className={
-                userFocus && username && !validName
-                  ? 'instructions'
-                  : 'offscreen'
-              }
-            >
-              <FontAwesomeIcon icon={faInfoCircle} />
-              4 to 24 characters.
-              <br />
-              Must begin with a letter.
-              <br />
-              Letters, numbers, underscores, hyphens allowed.
-            </p>
 
             <label htmlFor="phone">
-              Phone:
+              Telefone:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validPhone ? 'valid' : 'hide'}
@@ -185,11 +159,11 @@ const Register = () => {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              Complete the phone number.
+              Ex: 84999887766.
             </p>
 
             <label htmlFor="password">
-              Password:
+              Senha:
               <FontAwesomeIcon
                 icon={faCheck}
                 className={validpassword ? 'valid' : 'hide'}
@@ -217,12 +191,12 @@ const Register = () => {
               }
             >
               <FontAwesomeIcon icon={faInfoCircle} />
-              8 to 24 characters.
+              8 a 24 caracteres.
               <br />
-              Must include uppercase and lowercase letters, a number and a
-              special character.
+              Precisa incluir ao menos uma letra maiúscula, uma letra minúscula, 
+              um número e um caractere especial.
               <br />
-              Allowed special characters:{' '}
+              Caracteres Especiais Perimitidos:{' '}
               <span aria-label="exclamation mark">!</span>{' '}
               <span aria-label="at symbol">@</span>{' '}
               <span aria-label="hashtag">#</span>{' '}
@@ -230,15 +204,15 @@ const Register = () => {
               <span aria-label="percent">%</span>
             </p>
 
-            <button disabled={!validName || !validpassword ? true : false}>
+            <button disabled={!validName || !validpassword ? true : false} style={{marginTop: "10px"}}>
               Sign Up
             </button>
           </form>
           <p>
-            Already registered?
+            Ja possui um cadastro?
             <br />
             <span className="line">
-              <Link to="/login">Sign Up</Link>
+              <Link to="/login">Log In</Link>
             </span>
           </p>
         </section>

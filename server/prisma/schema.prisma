@@ -13,10 +13,29 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id           Int     @unique @default(autoincrement())
-  username     String  @id @unique @db.VarChar(60)
-  telefone     String  @db.VarChar(60)
-  password     String  @db.VarChar(60)
+model Schedule {
+  id        Int        @id @default(autoincrement())
+  time      String
+  userID    Int? // Cliente que marcou o horário
+  user      User?      @relation(fields: [userID], references: [id])
+  createdAt DateTime   @default(now())
+  Waitlist  Waitlist[]
 }
 
+model User {
+  id       Int        @unique @default(autoincrement())
+  username String     @id @unique @db.VarChar(60)
+  telefone String     @db.VarChar(60)
+  password String     @db.VarChar(60)
+  Schedule Schedule[]
+  Waitlist Waitlist[]
+}
+
+model Waitlist {
+  id         Int      @id @default(autoincrement())
+  userId     Int // Cliente na fila de espera
+  user       User     @relation(fields: [userId], references: [id])
+  scheduleId Int // Horário associado
+  schedule   Schedule @relation(fields: [scheduleId], references: [id])
+  createdAt  DateTime @default(now())
+}
