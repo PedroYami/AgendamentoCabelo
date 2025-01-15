@@ -1,12 +1,13 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import ScheduleList from './scheduleList';
 
-const Home = () => {
+const Home = ( {userId }) => {
   const navigate = useNavigate();
 
   const handleRedirection = () => {
-    navigate('/schedule'); // Altere para a rota desejada
+    navigate(`/scheduleList/${userId}`); // Altere para a rota desejada
   };
 
   const handleLogout = () => {

@@ -25,6 +25,8 @@ const Login = () => {
   const [validpassword, setValidPassword] = useState(false)
   const [passwordFocus, setPasswordFocus] = useState(false)
 
+  const [userId, setUserId] = useState('')
+
   const [errMsg, setErrMsg] = useState('')
   const [success, setSuccess] = useState(false)
 
@@ -56,6 +58,8 @@ const Login = () => {
     try {
       const response = await Axios.get(`http://localhost:3001/users/ByUsername/${username}`)
 
+      setUserId(response.data.id)
+
       if (!response.data) {
         setErrMsg('Invalid user')
         return
@@ -81,7 +85,7 @@ const Login = () => {
   return (
     <>
       {success ? (
-        <Home />
+        <Home userId={userId} />
       ) : (
         <section>
           <p
